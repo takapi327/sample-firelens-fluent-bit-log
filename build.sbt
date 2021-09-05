@@ -40,6 +40,14 @@ Universal / javaOptions ++= Seq(
 run / fork := true
 
 /**
+ * Build mode
+ */
+import scala.sys.process._
+val branch  = ("git branch".lineStream_!).find(_.head == '*').map(_.drop(2)).getOrElse("")
+val master  = branch == "master"
+val staging = branch == "staging"
+
+/**
  * Setting for Docker Image
  */
 Docker / maintainer         := "t.takapi0327+infra-sample-firelens-fluentbit-log@gmail.com"
@@ -51,7 +59,10 @@ Docker / daemonUser         := "daemon"
 import com.amazonaws.regions.{ Region, Regions }
 
 Ecr / region           := Region.getRegion(Regions.AP_NORTHEAST_1)
-Ecr / repositoryName   := "stg-sample-firelens-fluent-bit-log"
+Ecr / repositoryName   := {
+  if   (master)  { (Docker / packageName).value }
+  else           { "stg-" + (Docker / packageName).value }
+}
 Ecr / repositoryTags   := Seq(version.value, "latest")
 Ecr / localDockerImage := (Docker / packageName).value + ":" + (Docker / version).value
 
@@ -60,16 +71,27 @@ import ReleaseTransformations._
 
 releaseVersionBump := sbtrelease.Version.Bump.Bugfix
 
-releaseProcess := Seq[ReleaseStep](
-  ReleaseStep(state => Project.extract(state).runTask(Ecr / login, state)._1),
-  inquireVersions,
-  runClean,
-  setReleaseVersion,
-  ReleaseStep(state => Project.extract(state).runTask(Docker / publishLocal, state)._1),
-  ReleaseStep(state => Project.extract(state).runTask(Ecr / push, state)._1),
-  commitReleaseVersion,
-  tagRelease,
-  setNextVersion,
-  commitNextVersion,
-  pushChanges
-)
+releaseProcess := {
+  if (master) {
+    Seq[ReleaseStep](
+      ReleaseStep(state => Project.extract(state).runTask(Ecr / login, state)._1),
+      inquireVersions,
+      runClean,
+      setReleaseVersion,
+      ReleaseStep(state => Project.extract(state).runTask(Docker / publishLocal, state)._1),
+      ReleaseStep(state => Project.extract(state).runTask(Ecr / push, state)._1),
+      commitReleaseVersion,
+      tagRelease,
+      setNextVersion,
+      commitNextVersion,
+      pushChanges
+    )
+  } else {
+    Seq[ReleaseStep](
+      runClean,
+      ReleaseStep(state => Project.extract(state).runTask(Docker / publishLocal, state)._1),
+      ReleaseStep(state => Project.extract(state).runTask(Ecr / login, state)._1),
+      ReleaseStep(state => Project.extract(state).runTask(Ecr / push, state)._1),
+    )
+  }
+}
