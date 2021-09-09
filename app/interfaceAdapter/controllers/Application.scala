@@ -27,7 +27,7 @@ class ApplicationController @Inject()(implicit
    * Methods for validating the warn log
    */
   def getWarn = Action {
-    try { throw new Exception("テスト") } catch { case t: Throwable => trackingLogger.warn("警告のテスト", t) }
+    try { throw new Exception("Warnのテスト") } catch { case t: Throwable => trackingLogger.warn("警告のテスト", t) }
     Ok("ok")
   }
 
@@ -35,7 +35,7 @@ class ApplicationController @Inject()(implicit
    * Methods for validating the error log
    */
   def getError = Action {
-    try { throw new Exception("テスト") } catch { case t: Throwable => trackingLogger.error("エラーのテスト", t) }
+    try { throw new Exception("Errorのテスト") } catch { case t: Throwable => trackingLogger.error("エラーのテスト", t) }
     Ok("ok")
   }
 }
