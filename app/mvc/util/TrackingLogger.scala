@@ -30,13 +30,6 @@ sealed case class TrackingLogger(logger: Logger) extends TrackingId {
   def error(message: => String, throwable: Throwable): Unit = { if (logger.isErrorEnabled) logger.error(GrantTrackingId(message), throwable) }
   def debug(message: => String, throwable: Throwable): Unit = { if (logger.isDebugEnabled) logger.debug(GrantTrackingId(message), throwable) }
   def trace(message: => String, throwable: Throwable): Unit = { if (logger.isTraceEnabled) logger.trace(GrantTrackingId(message), throwable) }
-
-  /**
-   * Give the Log a tracking ID
-   */
-  private def GrantTrackingId(message: String): String = {
-    s"[trackingId=${generateUUID}] ${message}"
-  }
 }
 
 object TrackingLogger {
