@@ -14,7 +14,7 @@ trait TrackingLogging {
 import LocationAwareLogger._
 protected case class TrackingLogger(logger: LocationAwareLogger) extends TrackingId {
 
-  val marker: Marker = MarkerFactory.getMarker(s"[trackingId=${generateUUID}]")
+  val marker: Marker = MarkerFactory.getMarker(s"[trackingId=${generateUUID.toString().replace("-", "")}]")
 
   /**
    * Message only log
