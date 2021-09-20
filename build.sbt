@@ -13,7 +13,8 @@ lazy val root = (project in file("."))
   .enablePlugins(EcrPlugin)
 
 libraryDependencies ++= Seq(
-  guice
+  guice,
+  "org.uaparser" %% "uap-scala" % "0.13.0",
 )
 
 scalacOptions ++= Seq(
