@@ -17,6 +17,7 @@
     <appender-ref ref="STDOUT" />
   </root>
 
-  <logger name="play"        level="INFO" />
-  <logger name="application" level="DEBUG" />
+  <logger name="play"                     level="INFO" />
+  <logger name="application"              level="DEBUG" />
+  <logger name="mvc.util.AccessLogFilter" level="INFO" />
 </configuration>
