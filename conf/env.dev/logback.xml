@@ -12,12 +12,61 @@
     </encoder>
   </appender>
 
+  <!-- アクセスログ用設定 -->
   <appender name="ACCESS-LOG" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
       <pattern>
         %d{yyyy-MM-dd HH:mm:ss} %marker %msg
         <!--
-          例: 2021-09-12 15:22:39 WARN [trackingId=08a3b43b-735b-4d73-91cb-8fd74f877d86] ログメッセージ
+          例: 2021-09-21 23:23:50 [trackingId=0795106aded94a35a9d774b432a34a4d]
+           {
+             "rid":1,
+             "host":"localhost:9000",
+             "version":"HTTP/1.1",
+             "method":"GET",
+             "Status":200,
+             "path":"/info",
+             "uri":"/info",
+             "uuid":null,
+             "session_id":null,
+             "uid":null,
+             "geoid_current":null,
+             "geoid_interested":null,
+             "remote_address":"0:0:0:0:0:0:0:1",
+             "client_os":"Mac OS X",
+             "client_os_version":"Mac OS X.15.7.0",
+             "client_device":"Mac",
+             "client_device_brand":"Apple",
+             "client_device_model":"Mac",
+             "client_ua":"Chrome",
+             "client_ua_version":"91.0.4472",
+             "client_is_mobile":false,
+             "user_agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.106 Safari/537.36",
+             "referer":null,
+             "elapsed_time":22,
+             "headers":[
+               {"Timeout-Access":"<function1>"},
+               {"Remote-Address":"0:0:0:0:0:0:0:1:52328"},
+               {"Raw-Request-URI":"/info"},
+               {"Tls-Session-Info":"Session(1632234215444|SSL_NULL_WITH_NULL_NULL)"},
+               {"Host":"localhost:9000"},
+               {"Connection":"keep-alive"},
+               {"Cache-Control":"max-age=0"},
+               {"sec-ch-ua":"\" Not;A Brand\";v=\"99\", \"Google Chrome\";v=\"91\", \"Chromium\";v=\"91\""},
+               {"sec-ch-ua-mobile":"?0"},
+               {"Upgrade-Insecure-Requests":"1"},
+               {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.106 Safari/537.36"},
+               {"Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"},
+               {"Sec-Fetch-Site":"none"},
+               {"Sec-Fetch-Mode":"navigate"},
+               {"Sec-Fetch-User":"?1"},
+               {"Sec-Fetch-Dest":"document"},
+               {"Accept-Encoding":"gzip, deflate, br"},
+               {"Accept-Language":"ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7"},
+               {"Cookie":"io=U2ezbS7usuDoIBxGAAAD"}
+             ],
+             "cookies":[]
+           }
         -->
       </pattern>
     </encoder>
@@ -29,7 +78,7 @@
 
   <logger name="play"                     level="INFO" />
   <logger name="application"              level="DEBUG" />
-  <logger name="mvc.util.AccessLogFilter" level="INFO">
+  <logger name="mvc.util.AccessLogFilter" level="INFO" additivity="false">
     <appender-ref ref="ACCESS-LOG" />
   </logger>
 </configuration>

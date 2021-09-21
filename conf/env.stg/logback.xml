@@ -5,13 +5,18 @@
     <encoder>
       <pattern>
         %d{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) [%thread] %marker %cyan(%logger{15}) %magenta(%X{akkaSource}) %msg \(%file:%line\)%n
-        <!--
-          例: 2021-09-12 15:22:39 WARN  [application-akka.actor.default-dispatcher-3] [trackingId=08a3b43b-735b-4d73-91cb-8fd74f877d86] i.c.ApplicationController ログメッセージ (Application.scala:31)
-        -->
       </pattern>
     </encoder>
   </appender>
 
+  <!-- アクセスログ用設定 -->
+  <appender name="ACCESS-LOG" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>
+        %d{yyyy-MM-dd HH:mm:ss} %marker %msg
+      </pattern>
+    </encoder>
+  </appender>
 
   <root level="WARN">
     <appender-ref ref="STDOUT" />
@@ -19,5 +24,7 @@
 
   <logger name="play"                     level="INFO" />
   <logger name="application"              level="DEBUG" />
-  <logger name="mvc.util.AccessLogFilter" level="INFO" />
+  <logger name="mvc.util.AccessLogFilter" level="INFO" additivity="false">
+    <appender-ref ref="ACCESS-LOG" />
+  </logger>
 </configuration>
