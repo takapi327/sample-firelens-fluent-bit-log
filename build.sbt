@@ -59,10 +59,10 @@ Docker / daemonUser         := "daemon"
 /** setting AWS Ecr */
 import com.amazonaws.regions.{ Region, Regions }
 
-Ecr / region           := Region.getRegion(Regions.AP_NORTHEAST_1)
-Ecr / repositoryName   := {
-  if   (master)  { (Docker / packageName).value }
-  else           { "stg-" + (Docker / packageName).value }
+Ecr / region         := Region.getRegion(Regions.AP_NORTHEAST_1)
+Ecr / repositoryName := {
+  if   (master) { (Docker / packageName).value }
+  else          { "stg-" + (Docker / packageName).value }
 }
 Ecr / repositoryTags   := Seq(version.value, "latest")
 Ecr / localDockerImage := (Docker / packageName).value + ":" + (Docker / version).value
@@ -75,11 +75,11 @@ releaseVersionBump := sbtrelease.Version.Bump.Bugfix
 releaseProcess := {
   if (master) {
     Seq[ReleaseStep](
-      ReleaseStep(state => Project.extract(state).runTask(Ecr / login, state)._1),
       inquireVersions,
       runClean,
       setReleaseVersion,
       ReleaseStep(state => Project.extract(state).runTask(Docker / publishLocal, state)._1),
+      ReleaseStep(state => Project.extract(state).runTask(Ecr / login, state)._1),
       ReleaseStep(state => Project.extract(state).runTask(Ecr / push, state)._1),
       commitReleaseVersion,
       tagRelease,
