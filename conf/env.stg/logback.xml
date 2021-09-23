@@ -4,15 +4,7 @@
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
       <pattern>
-        {
-          "datetime": %d{yyyy-MM-dd HH:mm:ss},
-          "status": %highlight(%-5level),
-          "trackingId": %marker,
-          "thread": %thread,
-          "package": %cyan(%logger{15}),
-          "message": %msg,
-          "file": \(%file:%line\)%n
-        }
+        %d{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) [%thread] %marker %cyan(%logger{15}) %msg \(%file:%line\)%n
       </pattern>
     </encoder>
   </appender>
