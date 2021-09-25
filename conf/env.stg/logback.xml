@@ -2,10 +2,8 @@
 <configuration>
   <!-- 標準出力用設定 -->
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <pattern>
-        %d{yyyy-MM-dd HH:mm:ss} [%-5level] [%thread] [%marker] [%msg] [%class.%method\(%file:%line\)] [%ex{full}] %n
-      </pattern>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+      <jsonGeneratorDecorator class="net.logstash.logback.decorate.PrettyPrintingJsonGeneratorDecorator"/>
     </encoder>
   </appender>
 
