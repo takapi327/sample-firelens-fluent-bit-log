@@ -24,7 +24,9 @@
 
   <logger name="play"                     level="INFO" />
   <logger name="application"              level="DEBUG" />
+  <!--
   <logger name="mvc.util.AccessLogFilter" level="INFO" additivity="false">
     <appender-ref ref="ACCESS-LOG" />
   </logger>
+  -->
 </configuration>
