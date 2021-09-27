@@ -1,12 +1,28 @@
 package mvc.util
 
-import play.api.libs.json.Json
+//import play.api.libs.json.Json
 
-import ch.qos.logback.core.LayoutBase
-import ch.qos.logback.core.CoreConstants
-import ch.qos.logback.classic.spi.ILoggingEvent
+//import ch.qos.logback.core.LayoutBase
+//import ch.qos.logback.core.CoreConstants
+//import ch.qos.logback.classic.spi.ILoggingEvent
 
-class LogbackJsonEncoder extends LayoutBase[ILoggingEvent] {
+import java.util.regex.Pattern
+
+import ch.qos.logback.classic.pattern.ThrowableProxyConverter
+import ch.qos.logback.classic.spi.IThrowableProxy
+
+class OneLineThrowableProxyConverter extends ThrowableProxyConverter {
+
+  val sp = Pattern.compile("\r\n|[\n\r]")
+  val tb = Pattern.compile("\t", Pattern.LITERAL)
+
+  override def throwableProxyToString(tp: IThrowableProxy): String = {
+    val str = super.throwableProxyToString(tp)
+    tb.matcher(sp.matcher(str).replaceAll("\\\\n")).replaceAll("    ")
+  }
+}
+/*
+object LogbackJsonEncoder extends LayoutBase[ILoggingEvent] {
 
   def doLayout(event: ILoggingEvent): String = {
     Json.obj(
@@ -27,3 +43,4 @@ class LogbackJsonEncoder extends LayoutBase[ILoggingEvent] {
     ).toString()
   }
 }
+ */
