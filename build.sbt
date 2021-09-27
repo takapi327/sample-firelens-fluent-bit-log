@@ -14,8 +14,16 @@ lazy val root = (project in file("."))
 
 libraryDependencies ++= Seq(
   guice,
-  "org.uaparser" %% "uap-scala" % "0.13.0",
-  "net.logstash.logback" % "logstash-logback-encoder" % "6.6"
+  "org.uaparser"        %% "uap-scala"    % "0.13.0",
+  "io.github.takapi327" %% "tracking-log" % "1.0.0-SNAPSHOT"
+  /*
+  "org.apache.logging.log4j" % "log4j-slf4j-impl" % "2.4.1",
+  "org.apache.logging.log4j" % "log4j-api" % "2.4.1",
+  "org.apache.logging.log4j" % "log4j-core" % "2.4.1",
+   */
+  //"ch.qos.logback" % "logback-core" % "1.3.0-alpha10",
+  //"ch.qos.logback" % "logback-classic" % "1.3.0-alpha10"
+  //"net.logstash.logback" % "logstash-logback-encoder" % "6.6"
 )
 
 scalacOptions ++= Seq(

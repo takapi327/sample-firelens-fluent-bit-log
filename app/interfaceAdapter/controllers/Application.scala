@@ -5,6 +5,7 @@ import javax.inject.Inject
 import play.api.mvc._
 
 import mvc.util.TrackingLogging
+import trackingLog.mvc._
 
 class ApplicationController @Inject()(implicit
   cc: MessagesControllerComponents
