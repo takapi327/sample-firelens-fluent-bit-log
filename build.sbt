@@ -30,7 +30,7 @@ libraryDependencies ++= Seq(
   //"ch.qos.logback" % "logback-core" % "1.3.0-alpha10",
   //"ch.qos.logback" % "logback-classic" % "1.3.0-alpha10",
   //"org.slf4j" % "slf4j-simple" % "1.7.26" % Provided
-  //"net.logstash.logback" % "logstash-logback-encoder" % "6.6"
+  "net.logstash.logback" % "logstash-logback-encoder" % "6.6"
 )
 
 scalacOptions ++= Seq(
