@@ -3,20 +3,13 @@
   <!-- 標準出力用設定 -->
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
-    <!--
-    <encoder>
-      <pattern>
-        %d{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) [%thread] [trackingId=%marker] [%msg] [%class.%method\(%file:%line\)] [%ex{full}] %n
-      </pattern>
-    </encoder>
-    -->
   </appender>
 
   <!-- アクセスログ用設定 -->
   <appender name="ACCESS-LOG" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
       <pattern>
-        %d{yyyy-MM-dd HH:mm:ss} %marker %msg
+        %d{yyyy-MM-dd HH:mm:ss} %marker %msg %n
       </pattern>
     </encoder>
   </appender>
