@@ -1,6 +1,7 @@
 package interfaceAdapter.controllers
 
 import javax.inject.Inject
+
 import play.api.mvc._
 
 import mvc.util.TrackingLogging
@@ -27,7 +28,7 @@ class ApplicationController @Inject()(implicit
    * Methods for validating the warn log
    */
   def getWarn = Action {
-    try { throw new Exception("Warnのテスト") } catch { case t: Throwable => trackingLogger.warn("警告のテスト", t) }
+    trackingLogger.warn("Tracking Logger 警告のテスト")
     Ok("ok")
   }
 
