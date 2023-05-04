@@ -24,6 +24,10 @@ class ApplicationController @Inject()(implicit
     Ok("ok")
   }
 
+  def getService = Action {
+    Ok("Sample firelens fluent bit logのアプリケーション")
+  }
+
   /**
    * Methods for validating the warn log
    */

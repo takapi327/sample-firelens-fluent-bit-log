@@ -4,3 +4,5 @@ GET /healthcheck interfaceAdapter.controllers.ApplicationController.healthCheck
 GET /info  interfaceAdapter.controllers.ApplicationController.getInfo
 GET /warn  interfaceAdapter.controllers.ApplicationController.getWarn
 GET /error interfaceAdapter.controllers.ApplicationController.getError
+
+GET /api/service interfaceAdapter.controllers.ApplicationController.getService

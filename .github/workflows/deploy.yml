@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - staging
+      - develop
 
 jobs:
   build:
